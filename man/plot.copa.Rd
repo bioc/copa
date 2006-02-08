@@ -41,9 +41,9 @@ plot(copa, idx, lib = NULL,  sort = TRUE, col = NULL)
 \examples{
 if(interactive()){
 library(Biobase)
-data(example.exprSet)
-tmp <- copa(example.exprSet)
-plot(tmp, 1, pData(example.exprSet)[,2], col = c("red", "blue"))
+data(sample.exprSet)
+tmp <- copa(sample.exprSet)
+plot(tmp, 1, pData(sample.exprSet)[,2], col = c("red", "blue"))
 }
 }
 \keyword{ hplot }% at least one, from doc/KEYWORDS

@@ -15,7 +15,7 @@ pSum(a)
 }
 \value{
  \item{out}{A square matrix (of dimension length(a) X length(a))
-   containing all pairwise sums.
+   containing all pairwise sums.}
 }
 
 \author{ James W. MacDonald}

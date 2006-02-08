@@ -12,7 +12,7 @@ copaFilter(object, cl, cutoff, norm.count, pct)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{object}{ {An \code{exprSet}, \code{PLMset}, \code{MAList},
+  \item{object} {An \code{exprSet}, \code{PLMset}, \code{MAList},
     \code{marrayNorm} object, or a matrix or \code{data.frame}.}
   \item{cl}{ A vector of classlabels indicating sample status (normal =
     1, tumor = 2).}
@@ -29,7 +29,7 @@ copaFilter(object, cl, cutoff, norm.count, pct)
 
 \value{
   \item{mat}{A matrix containing the gene expression values for the
-    filtered genes.
+    filtered genes.}
 }
 \references{
   Tomlins, SA, et.al. Recurrent fusion of TMPRSS2 and ETS transcription

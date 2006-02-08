@@ -11,7 +11,7 @@ copaPerm(object, copa, outlier.num, B = 100, pval = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{{An \code{exprSet}, \code{PLMset}, \code{MAList},
+  \item{object}{An \code{exprSet}, \code{PLMset}, \code{MAList},
     \code{marrayNorm} object, or a matrix or \code{data.frame}.}
   \item{copa}{ An object of class 'copa', produced by running
     \code{copa} on a set of microarray data.}

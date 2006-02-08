@@ -80,8 +80,9 @@ Science. 2005 Oct 28;310(5748):644-8.
 
 \examples{
 library(Biobase)
-data(example.exprSet)
-tmp <- copa(example.exprSet)
+data(sample.exprSet)
+cl <- abs(3 - as.numeric(pData(sample.exprSet)[,2]))
+tmp <- copa(sample.exprSet, cln)
 }
 
 \keyword{ univar }% at least one, from doc/KEYWORDS
