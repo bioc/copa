@@ -8,17 +8,27 @@
  \code{marrayNorm} object, or a matrix or \code{data.frame}.
 }
 \usage{
-copa(object, cutoff = 5, max.overlap = 0)
+copa(object, cl, cutoff = 5, max.overlap = 0, norm.count = 0, pct = 0.95)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{object}{An \code{exprSet}, \code{PLMset}, \code{MAList},
- \code{marrayNorm} object, or a matrix or \code{data.frame}.}
+    \code{marrayNorm} object, or a matrix or \code{data.frame}.}
+  \item{cl}{A vector of classlabels indicating sample status (normal =
+    1, tumor = 2).}
   \item{cutoff}{The cutoff to determine 'outlier' status. See details
     for more information.}
   \item{max.overlap}{ The maximum number of samples that can be
     considered 'outliers' when comparing two genes. The default is 0,
-    indicating that there can be no overlap. See details for more information.}
+    indicating that there can be no overlap. See details for more
+    information.}
+  \item{norm.count}{The number of normal samples that can be considered
+    'outliers'. The default is 0, meaning that no normals may be
+    outliers.}
+  \item{pct}{The percentile to use for pre-filtering the data. A
+    preliminary step is to compute the number of outlier samples for
+    each gene. All genes with a number of outlier samples less than the
+    (default 95th) percentile will be removed from further consideration.}
 }
 \details{
   Cancer Outlier Profile Analysis is a method that is intended to find
@@ -43,7 +53,8 @@ copa(object, cutoff = 5, max.overlap = 0)
   Note that this function computes all row-wise comparisons, which gets
   very large very quickly. The function will throw a warning for any
   data set containing > 1000 rows and query the user to see if he/she
-  really wants to proceed.
+  really wants to proceed. The number of genes to be considered can be
+  adjusted by increasing/decreasing the 'pct' argument.
 }
 \value{
 \item{ord.prs}{A matrix with two columns containing the ordered row
@@ -53,7 +64,12 @@ copa(object, cutoff = 5, max.overlap = 0)
   gene pairs; the assumption being that a pair of genes with more
   mutually exclusive outliers will be more interesting than a pair with
   relatively fewer outliers.}
-\item{mat}{A matrix containing the original gene expression values.}
+\item{mat}{A matrix containing the filtered gene expression values.}
+\item{cl}{The classlabel vector passed to \code{copa}}
+\item{cutoff}{The cutoff used}
+\item{max.overlap}{The value of max.overlap used}
+\item{norm.count}{The value of norm.count used}
+\item{pct}{The percentile used in the pre-filtering step}
 }
 \references{
 Tomlins, SA, et.al. Recurrent fusion of TMPRSS2 and ETS transcription
@@ -64,8 +80,8 @@ Science. 2005 Oct 28;310(5748):644-8.
 
 \examples{
 library(Biobase)
-data(exSet)
-tmp <- copa(exSet)
+data(example.exprSet)
+tmp <- copa(example.exprSet)
 }
 
 \keyword{ univar }% at least one, from doc/KEYWORDS

@@ -12,7 +12,7 @@ pSum(a)
 
 \arguments{
   \item{a}{ A numeric vector}
-
+}
 \value{
  \item{out}{A square matrix (of dimension length(a) X length(a))
    containing all pairwise sums.

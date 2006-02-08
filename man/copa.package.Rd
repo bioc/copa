@@ -1,4 +1,5 @@
 \name{copa-package}
+\alias{copa-package}
 \docType{package}
 \title{
 copa - A package to compute 'Cancer Outlier Profile Analysis'
