@@ -92,7 +92,7 @@ copa <- function(object, cl, cutoff = 5, max.overlap = 0, norm.count = 0, pct = 
                         pct = pct), class = "copa"))
 }
 
-plot.copa <- function(copa, idx, lib = NULL, sort = TRUE, col = NULL){
+plotCopa <- function(copa, idx, lib = NULL, sort = TRUE, col = NULL){
 
   ## If affy chip, use available library
   if(!is.null(lib))
