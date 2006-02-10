@@ -82,7 +82,7 @@ Science. 2005 Oct 28;310(5748):644-8.
 library(Biobase)
 data(sample.exprSet)
 cl <- abs(3 - as.numeric(pData(sample.exprSet)[,2]))
-tmp <- copa(sample.exprSet, cln)
+tmp <- copa(sample.exprSet, cl)
 }
 
 \keyword{ univar }% at least one, from doc/KEYWORDS

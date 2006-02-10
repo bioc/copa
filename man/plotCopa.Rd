@@ -1,5 +1,5 @@
-\name{plot.copa}
-\alias{plot.copa}
+\name{plotCopa}
+\alias{plotCopa}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Plot Gene Pairs fom the Results of Running copa}
 \description{
@@ -7,7 +7,7 @@
   involved in recurrent gene fusion in cancer.
 }
 \usage{
-plot(copa, idx, lib = NULL,  sort = TRUE, col = NULL)
+plotCopa(copa, idx, lib = NULL,  sort = TRUE, col = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
