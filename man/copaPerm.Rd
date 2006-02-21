@@ -61,7 +61,7 @@ copaPerm(object, copa, outlier.num, B = 100, pval = FALSE)
     dividing by the observed value.}
 }
 \references{
-Tomlins, SA, et.al. Recurrent fusion of TMPRSS2 and ETS transcription
+Tomlins, SA, et al. Recurrent fusion of TMPRSS2 and ETS transcription
 factor genes in prostate cancer.
 Science. 2005 Oct 28;310(5748):644-8. 
 }

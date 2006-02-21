@@ -34,7 +34,7 @@ plotCopa(copa, idx, lib = NULL,  sort = TRUE, col = NULL)
   This function is called solely for outputting plots. No values are returned.
 }
 \references{
-  Tomlins, SA, et.al. Recurrent fusion of TMPRSS2 and ETS transcription
+  Tomlins, SA, et al. Recurrent fusion of TMPRSS2 and ETS transcription
   factor genes in prostate cancer.
   Science. 2005 Oct 28;310(5748):644-8.}
 \author{ James W. MacDonald}

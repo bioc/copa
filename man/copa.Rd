@@ -72,7 +72,7 @@ copa(object, cl, cutoff = 5, max.overlap = 0, norm.count = 0, pct = 0.95)
 \item{pct}{The percentile used in the pre-filtering step}
 }
 \references{
-Tomlins, SA, et.al. Recurrent fusion of TMPRSS2 and ETS transcription
+Tomlins, SA, et al. Recurrent fusion of TMPRSS2 and ETS transcription
 factor genes in prostate cancer.
 Science. 2005 Oct 28;310(5748):644-8. 
 }
