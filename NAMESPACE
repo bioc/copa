@@ -1,3 +1,3 @@
 useDynLib(copa)
 
-export(copa, plotCopa, copaPerm)
+export(copa, plotCopa, copaPerm, tableCopa, scatterPlotCopa)

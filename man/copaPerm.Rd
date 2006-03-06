@@ -7,7 +7,7 @@
   on permuting the class assignments.
 }
 \usage{
-copaPerm(object, copa, outlier.num, B = 100, pval = FALSE)
+copaPerm(object, copa, outlier.num, B = 100, pval = FALSE, verbose = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

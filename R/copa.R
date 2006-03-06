@@ -92,12 +92,14 @@ copa <- function(object, cl, cutoff = 5, max.overlap = 0, norm.count = 0, pct = 
                         pct = pct), class = "copa"))
 }
 
-plotCopa <- function(copa, idx, lib = NULL, sort = TRUE, col = NULL){
+plotCopa <- function(copa, idx, lib = NULL, sort = TRUE, col = NULL,
+                     legend = NULL){
 
   ## If affy chip, use available library
   if(!is.null(lib))
     require(lib, character.only = TRUE) || stop(paste("The package", lib, "is not installed!\n"))
-  
+  op <- par(no.readonly = TRUE)
+  on.exit(par(op))
   layout(matrix(1:2, nc=1))
   ## convert ordered pair matrix into vector
   if(is.matrix(copa$ord.pr[idx,]))
@@ -118,6 +120,9 @@ plotCopa <- function(copa, idx, lib = NULL, sort = TRUE, col = NULL){
         tmp.lst[[j]] <- copa$mat[gn.idx[i], copa$cl == grps[j]][ord]
       }
       barplot(unlist(tmp.lst), main = symb, col = rep(col, table(copa$cl)))
+      if(!is.null(legend))
+        if(i%%2 == 1)
+          legend("topleft", inset = 0.01, legend = legend, fill = col)
     }else{
       tmp.lst <- vector("list", length(grps))
       for(j in seq(along = grps))
@@ -129,10 +134,11 @@ plotCopa <- function(copa, idx, lib = NULL, sort = TRUE, col = NULL){
 
 
 
-copaPerm <- function(object, copa, outlier.num, B = 100, pval = FALSE){
+copaPerm <- function(object, copa, outlier.num, B = 100, pval = FALSE, verbose = TRUE){
  
   perm <- perm.mat(B, copa$cl)
   prmvals <- vector("list", B)
+  if(verbose)  cat("Counting permutations...\n")
   for(i in 1:B){
     mat <- copaFilter(object, copa$cl, copa$cutoff, copa$norm.count, copa$pct)
 
@@ -150,11 +156,13 @@ copaPerm <- function(object, copa, outlier.num, B = 100, pval = FALSE){
     pr.sums <- pr.sums[lower.tri(pr.sums)]
     index <- outpairs <= copa$max.overlap
     prmvals[[i]] <- pr.sums[index]
+    if(verbose)
+      if(i %% 100 == 0) cat(paste(i, "\n"))
   } 
   out <- sapply(prmvals, function(x) sum(x >= outlier.num))
   if(pval){
-    p.value <- sum(out <= outlier.num)/B
-    fdr <- mean(out)
+    p.value <- sum(out >= outlier.num)/B
+    fdr <- mean(out)/outlier.num * 100
     return(list(out = out, p.value = p.value, fdr = fdr))
   }else{
     return(out)
@@ -199,5 +207,29 @@ copaFilter <- function(object, cl, cutoff, norm.count, pct){
   index <- num.out >= quantile(num.out, probs = pct)
   mat <- mat[index,]
   mat
+}
+  
+tableCopa <- function(copa){
+  rev(table(copa$pr.sums))
+}
+
+scatterPlotCopa <- function(copa, idx, lib = NULL){
+  if (!is.null(lib)) 
+        require(lib, character.only = TRUE) || stop(paste("The package", 
+            lib, "is not installed!\n"))
+  for(i in seq(along = idx)){
+    gn.idx <- copa$ord.pr[idx[i],,drop = FALSE]
+    if(!is.null(lib)){
+      xlab <- get(row.names(copa$mat)[gn.idx[i,1]],
+                  get(paste(lib, "SYMBOL", sep = "")))
+      ylab <- get(row.names(copa$mat)[gn.idx[i,2]],
+                  get(paste(lib, "SYMBOL", sep = "")))
+    }else{
+      xlab <- row.names(copa$mat)[gn.idx[i,1]]
+      ylab <- row.names(copa$mat)[gn.idx[i,2]]
+    }
+    plot(copa$mat[gn.idx[i,1],], copa$mat[gn.idx[i,2],], xlab = xlab,
+         ylab = ylab, col = copa$cl)
+  }
 }
   
