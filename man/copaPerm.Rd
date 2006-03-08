@@ -22,6 +22,8 @@ copaPerm(object, copa, outlier.num, B = 100, pval = FALSE, verbose = TRUE)
   \item{pval}{Boolean. Output an estimated p-value and false discovery
     rate? Defaults to \code{FALSE}. This result will only be reasonable
     for large numbers of permutations (500 - 1000). See details.}
+  \item{verbose}{Boolean. Print out the permutation number at each of
+    100, 200, etc. Defaults to \code{TRUE}}
 }
 \details{
   Running \code{copa} on a set of microarray data will result in the
