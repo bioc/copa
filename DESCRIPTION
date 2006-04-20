@@ -10,3 +10,4 @@ Description: COPA is a method to find genes that undergo recurrent fusion
 Depends: Biobase
 Suggests: colonCA
 License: LLGPL
+biocViews: OneChannel, TwoChannel, DifferentialExpression, Visualization
