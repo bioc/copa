@@ -193,6 +193,9 @@ copaFilter <- function(object, cl, cutoff, norm.count, pct){
   ## Median center and scale using MAD
   med <- apply(mat, 1, median)
   MAD <- apply(mat, 1, mad)
+  ## Protect against samples with all equal values
+  if(any(MAD == 0))
+    MAD <- ifelse(MAD == 0, 0.001, MAD)
   mat <- sweep(mat, 1, med, "-")
   mat <- sweep(mat, 1, MAD, "/")
 
