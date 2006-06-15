@@ -52,6 +52,9 @@ perm.mat <- function(B, ids){
 
 copa <- function(object, cl, cutoff = 5, max.overlap = 0, norm.count = 0, pct = 0.95){
   
+  if(any(is.na(match(unique(cl), 1:2)))) stop("The 'cl' vector can only contain 1's and 2's",
+                                              call. = FALSE)
+  
   mat <- copaFilter(object, cl, cutoff, norm.count, pct)
   
   ng <- dim(mat)[1]
@@ -76,12 +79,19 @@ copa <- function(object, cl, cutoff = 5, max.overlap = 0, norm.count = 0, pct = 
   r.sum <- rowSums(outlier)
   pr.sums <- pSum(r.sum)
 
+  ## Get quantile differences for ordering ties
+  q.norm <- apply(mat[,cl == 1], 1, quantile, probs = 0.75)
+  q.tum <- apply(mat[,cl == 2], 1, quantile, probs = 0.75)
+  q.diff <- q.tum - q.norm
+  q.sums <- pSum(q.diff)
+
   ## find pairs where outliers are mutually exclusive and row sums are 'large'
   ## use lower.tri to remove diagonal and duplicated comparisons
   outpairs <- outpairs[lower.tri(outpairs)]
   pr.sums <- pr.sums[lower.tri(pr.sums)]
+  q.sums <- q.sums[lower.tri(q.sums)]
   index <- outpairs <= max.overlap
-  ord <- order(pr.sums[index], decreasing = TRUE)
+  ord <- order(pr.sums[index], q.sums[index], decreasing = TRUE)
   mat1 <- matrix(1:dim(mat)[1], nc = dim(mat)[1], nr = dim(mat)[1])
   mat2 <- t(mat1)           
   pr.idx <- cbind(mat1[lower.tri(mat1)], mat2[lower.tri(mat2)])
@@ -119,7 +129,8 @@ plotCopa <- function(copa, idx, lib = NULL, sort = TRUE, col = NULL,
         ord <- order(unlist(copa$mat[gn.idx[i], copa$cl == grps[j]]))
         tmp.lst[[j]] <- copa$mat[gn.idx[i], copa$cl == grps[j]][ord]
       }
-      barplot(unlist(tmp.lst), main = symb, col = rep(col, table(copa$cl)))
+      barplot(unlist(tmp.lst), main = symb, col = rep(col, table(copa$cl)),
+              xaxt = "n")
       if(!is.null(legend))
         if(i%%2 == 1)
           legend("topleft", inset = 0.01, legend = legend, fill = col)
@@ -127,14 +138,16 @@ plotCopa <- function(copa, idx, lib = NULL, sort = TRUE, col = NULL,
       tmp.lst <- vector("list", length(grps))
       for(j in seq(along = grps))
         tmp.lst[[j]] <- copa$mat[gn.idx[i], copa$cl == grps[j]]
-        barplot(unlist(tmp.lst), main = symb, col = rep(col, table(copa$cl)))
+        barplot(unlist(tmp.lst), main = symb, col = rep(col, table(copa$cl)),
+                xaxt = "n")
     }
   }
 }
 
 
 
-copaPerm <- function(object, copa, outlier.num, B = 100, pval = FALSE, verbose = TRUE){
+copaPerm <- function(object, copa, outlier.num, gene.pairs, B = 100,
+                     pval = FALSE, verbose = TRUE){
  
   perm <- perm.mat(B, copa$cl)
   prmvals <- vector("list", B)
@@ -161,55 +174,40 @@ copaPerm <- function(object, copa, outlier.num, B = 100, pval = FALSE, verbose =
   } 
   out <- sapply(prmvals, function(x) sum(x >= outlier.num))
   if(pval){
-    p.value <- sum(out >= outlier.num)/B
-    fdr <- mean(out)/outlier.num * 100
+    p.value <- sum(out >= gene.pairs)/B
+    fdr <- mean(out)/gene.pairs * 100
     return(list(out = out, p.value = p.value, fdr = fdr))
   }else{
     return(out)
   }
 }
 
-copaFilter <- function(object, cl, cutoff, norm.count, pct){
+do.copaFilter <- function(object, cl, cutoff, norm.count, pct){
   
-  mat <- NULL
-  if(is(object, "exprSet")){
-    mat <- exprs(object)
-  }else{
-    if(is(object, "PLMset")){
-      mat <- coefs.probe(object)
-    }else{
-      if(is(object, "MAList")){
-        mat <- object$M
-      }else{
-        if(is(object, "marrayNorm")){
-          mat <- object@maM
-        }
-      }
-    }
-  }
-  if(is.null(mat))
-    mat <- as.matrix(object)
-
   ## Median center and scale using MAD
-  med <- apply(mat, 1, median)
-  MAD <- apply(mat, 1, mad)
+  med <- apply(object, 1, median)
+  MAD <- apply(object, 1, mad)
   ## Protect against samples with all equal values
   if(any(MAD == 0))
     MAD <- ifelse(MAD == 0, 0.001, MAD)
-  mat <- sweep(mat, 1, med, "-")
-  mat <- sweep(mat, 1, MAD, "/")
+  object <- sweep(object, 1, med, "-")
+  object <- sweep(object, 1, MAD, "/")
 
-  outlier <- mat[,cl == 2] > cutoff
-  badnorm <- mat[,cl == 1] > cutoff
+  outlier <- object[,cl == 2] > cutoff
+  badnorm <- object[,cl == 1] > cutoff
 
   num.out <- rowSums(outlier)
   num.bad <- rowSums(badnorm)
   
   num.out <- num.out[num.bad <= norm.count]
-  mat <- mat[num.bad <= norm.count,]
+  object <- object[num.bad <= norm.count,]
+  if(quantile(num.out, probs = pct) == 0)
+    stop(paste("The ", pct, " quantile is 0.\n",
+               "You need to increase this value for",
+               " copa to work correctly."))
   index <- num.out >= quantile(num.out, probs = pct)
-  mat <- mat[index,]
-  mat
+  object <- object[index,]
+  object
 }
   
 tableCopa <- function(copa){

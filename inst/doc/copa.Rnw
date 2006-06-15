@@ -54,7 +54,7 @@ of oncogenes that may affect the progression of the cancer. This happens when th
 activation domain of a constitutively expressed (or up-regulated) gene is fused to the 
 3' portion of a given oncogene, thus increasing the expression of the oncogene. This 
 translocation can happen between the activating gene and multiple oncogenes, as was
-shown by Tomlins et al., as well as others \citet{Fonseca:2004}.
+shown by Tomlins \textit{et al.}, as well as others \citet{Fonseca:2004}.
 
 Since a given translocation is only likely to occur once per sample, if there were
 multiple partners for a given activating gene, we would expect to see certain cancer samples
@@ -72,7 +72,19 @@ select a common value (default is 5) as a cutoff for 'outlier' status and apply 
 all genes. We then simply look for pairs of genes that have a large number of mutually 
 exclusive outlier (cancer) samples, but few or no normal outliers. The candidate gene pairs
 will be ranked based on the sum of outlier samples for each pair, as this seems to
-be the most reasonable criterion for ranking.
+be the most reasonable criterion for ranking. 
+
+Since there may be several gene pairs with
+the same number of outliers we need to add an additional criterion to rank the ties. We use a
+modification of the ranking scheme used by Tomlins \textit{et al.}. They simply ranked the
+genes using the 75$^{th}$, 95$^{th}$ and 99$^{th}$ percentiles of the centered and scaled expression values.
+Since we are looking at pairs rather than individual genes, we take the difference between the
+7$^{th}$ percentile of the tumor and normal samples, and then compute the sum of these differences
+for each gene pair. This value quantifies how different the outlier pairs are from their 
+corresponding normals. We chose the 75$^{th}$ percentile for ranking rather than say, the 
+95$^{th}$ because the values at the higher percentile are what caused the gene pairs to be 
+selected in the first place, so we want to use a less extreme percentile to distinguish between
+the tied pairs.
 
 \section{Using copa}
 
@@ -154,7 +166,7 @@ true, then we have some reassurance that the observed results are not a chance
 event, and these gene pairs may well be undergoing some sort of recombination.
 
 <<>>=
-prm <- copaPerm(colonCA, rslt, 9)
+prm <- copaPerm(colonCA, rslt, 9, 24)
 sum(prm >= 9)
 @ 
 

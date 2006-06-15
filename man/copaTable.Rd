@@ -22,9 +22,9 @@ tableCopa(copa)
 \author{James W. MacDonald}
 \examples{
 library(Biobase)
-data(sample.exprSet)
-cl <- abs(3 - as.numeric(pData(sample.exprSet)[,2]))
-tmp <- copa(sample.exprSet, cl)
+data(sample.ExpressionSet)
+cl <- abs(3 - as.numeric(pData(sample.ExpressionSet)[,2]))
+tmp <- copa(sample.ExpressionSet, cl)
 tableCopa(tmp)
 }
 \keyword{ manip }% at least one, from doc/KEYWORDS

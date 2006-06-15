@@ -12,7 +12,7 @@ permutation, and plots of paired genes.
 \tabular{ll}{
 Package: \tab copa\cr
 Type: \tab Package\cr
-Version: \tab 0.1.0\cr
+Version: \tab 1.1.2\cr
 Date: \tab 2006-01-26\cr
 License: \tab LLGPL \cr
 }

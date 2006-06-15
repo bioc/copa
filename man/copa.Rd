@@ -4,16 +4,15 @@
 \title{ Calculate COPA Scores from a Set of Microarrays}
 \description{
  This function calculates COPA scores from a set of microarrays. Input
- can be an \code{exprSet}, \code{PLMset}, \code{MAList},
- \code{marrayNorm} object, or a matrix or \code{data.frame}.
+ can be an \code{exprSet}, \code{ExpressionSet}, or a matrix or \code{data.frame}.
 }
 \usage{
 copa(object, cl, cutoff = 5, max.overlap = 0, norm.count = 0, pct = 0.95)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{object}{An \code{exprSet}, \code{PLMset}, \code{MAList},
-    \code{marrayNorm} object, or a matrix or \code{data.frame}.}
+  \item{object}{An \code{exprSet},\code{ExpressionSet},
+    or a matrix or \code{data.frame}.}
   \item{cl}{A vector of classlabels indicating sample status (normal =
     1, tumor = 2).}
   \item{cutoff}{The cutoff to determine 'outlier' status. See details
@@ -80,9 +79,9 @@ Science. 2005 Oct 28;310(5748):644-8.
 
 \examples{
 library(Biobase)
-data(sample.exprSet)
-cl <- abs(3 - as.numeric(pData(sample.exprSet)[,2]))
-tmp <- copa(sample.exprSet, cl)
+data(sample.ExpressionSet)
+cl <- abs(3 - as.numeric(pData(sample.ExpressionSet)[,2]))
+tmp <- copa(sample.ExpressionSet, cl)
 }
 
 \keyword{ univar }% at least one, from doc/KEYWORDS

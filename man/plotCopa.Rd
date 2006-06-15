@@ -43,9 +43,9 @@ plotCopa(copa, idx, lib = NULL,  sort = TRUE, col = NULL, legend = NULL)
 \examples{
 if(interactive()){
 library(Biobase)
-data(sample.exprSet)
-cl <- abs(3 - as.numeric(pData(sample.exprSet)[,2]))
-tmp <- copa(sample.exprSet, cl)
+data(sample.ExpressionSet)
+cl <- abs(3 - as.numeric(pData(sample.ExpressionSet)[,2]))
+tmp <- copa(sample.ExpressionSet, cl)
 plotCopa(tmp, 1, col = c("red", "blue"))
 }
 }

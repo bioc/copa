@@ -7,16 +7,17 @@
   on permuting the class assignments.
 }
 \usage{
-copaPerm(object, copa, outlier.num, B = 100, pval = FALSE, verbose = TRUE)
+copaPerm(object, copa, outlier.num, gene.pairs, B = 100, pval = FALSE, verbose = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{object}{An \code{exprSet}, \code{PLMset}, \code{MAList},
-    \code{marrayNorm} object, or a matrix or \code{data.frame}.}
+  \item{object}{An \code{exprSet}, \code{ExpressionSet}, or a matrix or \code{data.frame}.}
   \item{copa}{ An object of class 'copa', produced by running
     \code{copa} on a set of microarray data.}
   \item{outlier.num}{The number of outliers to test for. See details for
     more information}
+  \item{gene.pairs}{The number of gene pairs to test for. See details
+    for more information}
   \item{B}{The number of permutations to perform. Defaults to 100. This
     may be too many for interactive use.}
   \item{pval}{Boolean. Output an estimated p-value and false discovery
@@ -35,7 +36,7 @@ copaPerm(object, copa, outlier.num, B = 100, pval = FALSE, verbose = TRUE)
   likely to be involved in some sort of recurrent fusion.
 
   One can see how many pairs of genes resulted in a given number of
-  outliers by calling \code{table(copa.object$pr.sums)}. One may then
+  outliers by calling \code{tableCopa}. One may then
   want to determine how significant a certain number of pairs is (e.g.,
   how likely is it to get that many pairs if there is no recurrent
   fusion occuring). The most straightforward way to estimate the
