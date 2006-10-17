@@ -5,7 +5,6 @@
 \alias{copaFilter-methods}
 \alias{copaFilter, matrix-method}
 \alias{copaFilter, data.frame-method}
-\alias{copaFilter, exprSet-method}
 \alias{copaFilter, ExpressionSet-method}
 \title{ Pre-filter Genes for COPA Analysis}
 \description{
@@ -17,13 +16,12 @@
 \usage{
 \S4method{copaFilter}{matrix}(object, cl, cutoff, norm.count, pct)
 \S4method{copaFilter}{data.frame}(object, cl, cutoff, norm.count, pct)
-\S4method{copaFilter}{exprSet}(object, cl, cutoff, norm.count, pct)
 \S4method{copaFilter}{ExpressionSet}(object, cl, cutoff, norm.count, pct)
 
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{object} {An \code{exprSet}, \code{ExpressionSet}, or a matrix or \code{data.frame}.}
+  \item{object} {An \code{ExpressionSet}, or a matrix or \code{data.frame}.}
   \item{cl}{ A vector of classlabels indicating sample status (normal =
     1, tumor = 2).}
   \item{cutoff}{The cutoff to determine 'outlier' status. See details

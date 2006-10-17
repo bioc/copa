@@ -11,7 +11,7 @@ copaPerm(object, copa, outlier.num, gene.pairs, B = 100, pval = FALSE, verbose =
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{object}{An \code{exprSet}, \code{ExpressionSet}, or a matrix or \code{data.frame}.}
+  \item{object}{An \code{ExpressionSet}, or a matrix or \code{data.frame}.}
   \item{copa}{ An object of class 'copa', produced by running
     \code{copa} on a set of microarray data.}
   \item{outlier.num}{The number of outliers to test for. See details for
