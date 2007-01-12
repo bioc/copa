@@ -97,7 +97,6 @@ package, which contains an \Robject{exprSet} with normal and tumor colon express
 library(copa)
 library(colonCA)
 data(colonCA)
-colonCA
 pData(colonCA)
 @ 
 
@@ -105,7 +104,7 @@ We will use the third column of the \Robject{phenoData} object as our classlabel
 tells \Rfunction{copa} which samples are tumor and which are normal. There is no need to 
 pre-filter the expression data; \Rfunction{copa} has an internal pre-filtering step that
 selects the top \Rfunarg{pct}(percentile) of the data, based on the number of outliers.
-The default is to use the $95^th$ percentile as a cutoff; if this results in more than
+The default is to use the $95^{th}$ percentile as a cutoff; if this results in more than
 1000 genes, \Rfunction{copa} will give a warning and allow you to abort the run (and 
 presumably re-run with a higher value for \Rfunarg{pct}).
 
@@ -142,17 +141,20 @@ annotation package.
 
 This plot doesn't look that impressive, as there are only a few samples that fulfill 
 the criterion for outlier status. We can look at how many gene pairs there are with a
-given number of outliers using the \Rfunction{table} function.
+given number of outliers using the \Rfunction{tableCopa} function.
 
 <<>>=
-tab <- rev(table(rslt$pr.sums))
-tab
+tableCopa(rslt)
 @ 
 
-The \Rfunction{rev} function is used here to order things from larger to smaller.
-We can see that there are \Sexpr{tab[[1]]} gene pairs that have \Sexpr{as.numeric(names(tab[1]))}
-outliers and \Sexpr{tab[[2]]} gene pairs that have \Sexpr{as.numeric(names(tab[2]))} 
-outliers. 
+We might then want to know which genes have
+\Sexpr{as.numeric(names(tableCopa(rslt)[1]))}. We can list them out
+using the \Rfunction{summaryCopa} function.
+
+<<>>=
+summaryCopa(rslt, 9)
+@ 
+
 
 We might now want to know how significant this result is. 
 We can test this hypothesis by permuting the 
@@ -160,7 +162,7 @@ class labels of the samples many times and then checking to see how often we see
 pairs of genes with a certain number of outliers. By permuting the class labels
 we are mixing up the tumor and normals, so any pair with a large number of outliers
 by definition has arisen by chance. If we get many gene pairs with say, 
-\Sexpr{as.numeric(names(tab[1]))} outliers then it is fairly likely that our
+\Sexpr{as.numeric(names(tableCopa(rslt)[1]))} outliers then it is fairly likely that our
 observed results could have arisen by chance as well. However, if the opposite is
 true, then we have some reassurance that the observed results are not a chance 
 event, and these gene pairs may well be undergoing some sort of recombination.

@@ -217,7 +217,7 @@ tableCopa <- function(copa){
 scatterPlotCopa <- function(copa, idx, lib = NULL){
   if (!is.null(lib)) 
         require(lib, character.only = TRUE) || stop(paste("The package", 
-            lib, "is not installed!\n"))
+            lib, "is not installed!\n"), call. = FALSE)
   for(i in seq(along = idx)){
     gn.idx <- copa$ord.pr[idx[i],,drop = FALSE]
     if(!is.null(lib)){
@@ -234,3 +234,29 @@ scatterPlotCopa <- function(copa, idx, lib = NULL){
   }
 }
   
+summaryCopa <- function(copa, pairnum, lib = NULL){
+    if(pairnum > max(copa$pr.sums))
+        stop("There aren't any genes with that many pairs.\n", call. = FALSE)
+    if(!is.null(lib))
+        require(lib, character.only = TRUE) || stop(paste("The package",
+                     lib, "is.not installed!\n"), call. = FALSE)
+    idx <- copa$pr.sums >= pairnum
+    prbId1 <- row.names(copa$mat)[copa$ord.prs[idx,1]]
+    prbId2 <- row.names(copa$mat)[copa$ord.prs[idx,2]]
+    if(is.null(lib)){
+        out <- data.frame("Number of pairs" = copa$pr.sums[idx],
+                          "Probe ID 1" = prbId1,
+                          "Probe ID 2" = prbId2)
+    }else{
+        gn1 <- sapply(mget(prbId1, get(paste(lib, "SYMBOL", sep = ""))),
+                           function(x) x[1])
+        gn2 <- sapply(mget(prbId2, get(paste(lib, "SYMBOL", sep = ""))),
+                           function(x) x[1])
+        out <- data.frame("Number of pairs" = copa$pr.sums[idx],
+                          "Probe ID 1" = prbId1,
+                          "Symbol 1" = gn1,
+                          "Probe ID 2" = prbId2,
+                          "Symbol 2" = gn2, row.names = NULL)
+    }
+    out
+}
