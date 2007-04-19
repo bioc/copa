@@ -152,9 +152,8 @@ copaPerm <- function(object, copa, outlier.num, gene.pairs, B = 100,
   perm <- perm.mat(B, copa$cl)
   prmvals <- vector("list", B)
   if(verbose)  cat("Counting permutations...\n")
+  mat <- copaFilter(object, copa$cl, copa$cutoff, copa$norm.count, copa$pct)
   for(i in 1:B){
-    mat <- copaFilter(object, copa$cl, copa$cutoff, copa$norm.count, copa$pct)
-
     ## Get gene pairs that have mutually exclusive outliers
     outlier <-mat[,perm[i,] == 2] > copa$cutoff 
     outpairs <- crossprod(t(outlier))
