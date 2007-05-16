@@ -14,7 +14,7 @@ perm.mat(B, ids)
   \item{B}{ The number of permutations}
   \item{ids}{A vector of classlabels}
 }
-}
+
 \value{
  A matrix of permuted classlabels.
 }
