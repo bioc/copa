@@ -79,7 +79,7 @@ the same number of outliers we need to add an additional criterion to rank the t
 modification of the ranking scheme used by Tomlins \textit{et al.}. They simply ranked the
 genes using the 75$^{th}$, 95$^{th}$ and 99$^{th}$ percentiles of the centered and scaled expression values.
 Since we are looking at pairs rather than individual genes, we take the difference between the
-7$^{th}$ percentile of the tumor and normal samples, and then compute the sum of these differences
+75$^{th}$ percentile of the tumor and normal samples, and then compute the sum of these differences
 for each gene pair. This value quantifies how different the outlier pairs are from their 
 corresponding normals. We chose the 75$^{th}$ percentile for ranking rather than say, the 
 95$^{th}$ because the values at the higher percentile are what caused the gene pairs to be 
@@ -97,7 +97,7 @@ package, which contains an \Robject{exprSet} with normal and tumor colon express
 library(copa)
 library(colonCA)
 data(colonCA)
-pData(colonCA)
+head(pData(colonCA), 10)
 @ 
 
 We will use the third column of the \Robject{phenoData} object as our classlabel, which
