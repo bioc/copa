@@ -91,7 +91,7 @@ the tied pairs.
 To search for gene pairs that may be involved in translocations is very simple. Just 
 load the \Rpackage{copa} package, and run the \Rfunction{copa} function using your
 microarray expression values. For this vignette, we will be using the \Rpackage{colonCA}
-package, which contains an \Robject{exprSet} with normal and tumor colon expression data.
+package, which contains an \Robject{ExpressionSet} with normal and tumor colon expression data.
 
 <<>>=
 library(copa)
