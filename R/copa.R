@@ -20,7 +20,7 @@ pSum <- function(a){
                "This is often due to genes with identical values for all samples.\n",
                "Please filter these data first.\n"))
   out <- .C("pairwise_sum", as.double(a), as.integer(length(a)),
-            as.double(vector("double", length(a)^2)))[[3]]
+            as.double(vector("double", length(a)^2)), PACKAGE = "copa")[[3]]
   matrix(out, nc = length(a), nr = length(a))
 }
 
