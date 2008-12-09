@@ -21,7 +21,7 @@
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{object} {An \code{ExpressionSet}, or a matrix or \code{data.frame}.}
+  \item{object}{An \code{ExpressionSet}, or a matrix or \code{data.frame}.}
   \item{cl}{ A vector of classlabels indicating sample status (normal =
     1, tumor = 2).}
   \item{cutoff}{The cutoff to determine 'outlier' status. See details
