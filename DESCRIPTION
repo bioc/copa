@@ -1,6 +1,6 @@
 Package: copa
 Title: Functions to perform cancer outlier profile analysis.
-Version: 1.13.0
+Version: 1.13.1
 Date: 2006-01-26
 Author: James W. MacDonald
 Maintainer: James W. MacDonald <jmacdon@med.umich.edu>
@@ -9,6 +9,6 @@ Description: COPA is a method to find genes that undergo recurrent fusion
 	     mutually exclusive outlier profiles.
 Depends: Biobase, methods
 Suggests: colonCA
-License: Artistic
+License: Artistic-2.0
 LazyLoad: yes
 biocViews: OneChannel, TwoChannel, DifferentialExpression, Visualization
