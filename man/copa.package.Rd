@@ -23,7 +23,7 @@ calculate permutation based p-values and estimate false discovery rate (FDR).
 \author{
 James W. MacDonald
 
-Maintainer: James W. MacDonald <jmacdon@med.umich.edu>
+Maintainer: James W. MacDonald <jmacdon@u.washington.edu>
 }
 \references{
 Tomlins, SA, et al. Recurrent fusion of TMPRSS2 and ETS transcription

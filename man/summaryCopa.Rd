@@ -29,7 +29,7 @@ summaryCopa(copa, pairnum, lib = NULL)
   Tomlins, SA, et al. Recurrent fusion of TMPRSS2 and ETS transcription
   factor genes in prostate cancer.
   Science. 2005 Oct 28;310(5748):644-8.}
-\author{James W. MacDonald <jmacdon@med.umich.edu>}
+\author{James W. MacDonald <jmacdon@u.washington.edu>}
 
 \examples{
 if(interactive()){
