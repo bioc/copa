@@ -1,6 +1,6 @@
 Package: copa
 Title: Functions to perform cancer outlier profile analysis.
-Version: 1.53.0
+Version: 1.54.0
 Date: 2006-01-26
 Author: James W. MacDonald
 Maintainer: James W. MacDonald <jmacdon@u.washington.edu>
